@@ -5,27 +5,26 @@ import imagekit from '../configs/imageKit.js';
 // Get User Data using userId from auth middleware
 export const getUserData = async (req, res) => {
     try {
-        const userId = req.authUserId || req.auth?.userId;
-        
-        if (!userId) {
-            return res.status(401).json({ success: false, message: "User ID not found" });
-        }
-        
-        console.log('🔍 Controller: Looking for user with ID:', userId);
+        const userId = req.auth.userId; // From Clerk middleware
         
         const user = await User.findById(userId);
         if (!user) {
-            console.log('❌ Controller: User not found with ID:', userId);
-            return res.status(404).json({ success: false, message: "User not found" });
+            return res.status(404).json({ success: false, message: 'User not found' });
         }
         
-        console.log('✅ Controller: User found:', user.email);
-        res.json({ success: true, user });
+        return res.json({ 
+            success: true, 
+            data: user 
+        });
     } catch (error) {
-        console.log('❌ Controller Error:', error);
-        res.status(500).json({ success: false, message: error.message });
+        console.error('Get user error:', error);
+        return res.status(500).json({ 
+            success: false, 
+            message: 'Error fetching user data',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
     }
-}
+};
 
 export const updateUserData = async (req, res) => {
     try {
