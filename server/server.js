@@ -48,14 +48,16 @@ app.use(cors({
     'http://localhost:5173', 
     'http://localhost:3000',
     'https://artwall-fawn.vercel.app',
-    'https://uas-server.vercel.app'
+    'https://uas-server.vercel.app',
+    'https://30novbe.vercel.app',
+    'https://30novfe-seven.vercel.app'
   ],
   credentials: true
 }));
 
 // SSE middleware - bypass CORS and auth for EventSource
 app.use('/api/messages/:user_id', (req, res, next) => {
-  const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'https://artwall-fawn.vercel.app'];
+  const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'https://artwall-fawn.vercel.app','https://30novbe.vercel.app', 'https://30novfe-seven.vercel.app', 'https://uas-server.vercel.app'];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
@@ -67,7 +69,7 @@ app.use('/api/messages/:user_id', (req, res, next) => {
 
 // CORS middleware for messages/recent endpoint
 app.use('/api/messages/recent', (req, res, next) => {
-  const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'https://artwall-fawn.vercel.app'];
+  const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'https://artwall-fawn.vercel.app','https://30novbe.vercel.app', 'https://30novfe-seven.vercel.app', 'https://uas-server.vercel.app'];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
@@ -236,7 +238,8 @@ app.get('/api/messages/:user_id', (req, res, next) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive'); 
-    const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'https://artwall-fawn.vercel.app'];
+    const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'https://artwall-fawn.vercel.app','https://30novbe.vercel.app', 'https://30novfe-seven.vercel.app', 'https://uas-server.vercel.app'];
+
     const origin = req.headers.origin;
     if (allowedOrigins.includes(origin)) {
       res.setHeader('Access-Control-Allow-Origin', origin);
