@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_BASEURL,
-    withCredentials: false // Disable cookies, use JWT instead
+    withCredentials: true // Enable cookies for auth
 });
 
 // Add Clerk JWT token to all requests
