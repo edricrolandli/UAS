@@ -10,6 +10,8 @@ export const addUserStory = async (req, res) => {
         console.log('📖 [Story] Create story request received');
         console.log('📖 [Story] Request body:', req.body);
         console.log('📖 [Story] Request file:', req.file);
+        console.log('📖 [Story] DEBUG - req.auth():', req.auth());
+        console.log('📖 [Story] DEBUG - req.authUserId:', req.authUserId);
         
         const { userId } = req.auth();
         console.log('📖 [Story] User ID from auth:', userId);
@@ -82,6 +84,8 @@ export const addUserStory = async (req, res) => {
 export const getStories = async (req, res) => {
     try {
         console.log('📖 [Story] Get stories request received - VERSION 2.0');
+        console.log('📖 [Story] DEBUG - req.auth():', req.auth());
+        console.log('📖 [Story] DEBUG - req.authUserId:', req.authUserId);
         
         const { userId } = req.auth();
         console.log('📖 [Story] User ID from auth:', userId);
@@ -96,7 +100,7 @@ export const getStories = async (req, res) => {
         console.log('📖 [Story] User connections:', user.connections);
         console.log('📖 [Story] User following:', user.following);
 
-        // User connections and followings
+        // User connections and followings  
         const userIds = [userId, ...user.connections, ...user.following]
         console.log('📖 [Story] User IDs to fetch stories for:', userIds);
 

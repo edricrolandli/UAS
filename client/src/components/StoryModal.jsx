@@ -83,8 +83,11 @@ const StoryModal = ({setShowModal, fetchStories}) => {
 
         const token = await getToken();
         console.log('📖 [StoryModal] Got token:', !!token);
+        console.log('📖 [StoryModal] Token length:', token?.length);
+        console.log('📖 [StoryModal] Token preview:', token?.substring(0, 50) + '...');
         
         try {
+            console.log('📖 [StoryModal] Making API call to:', api.defaults.baseURL + '/api/stories/create');
             const { data } = await api.post('/api/stories/create', formData, {headers: {Authorization: `Bearer ${token}`}})
             console.log('📖 [StoryModal] API response:', data);
             
@@ -99,6 +102,8 @@ const StoryModal = ({setShowModal, fetchStories}) => {
             }
         } catch (error) {
             console.error('📖 [StoryModal] Error creating story:', error);
+            console.error('📖 [StoryModal] Error response:', error.response?.data);
+            console.error('📖 [StoryModal] Error status:', error.response?.status);
             toast.error(error.message)
         }
     }
