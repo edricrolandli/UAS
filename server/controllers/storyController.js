@@ -6,9 +6,14 @@ import { inngest } from "../inngest/index.js";
 
 // Add user story
 export const addUserStory = async (req, res) => {
+    console.log('🚨🚨🚨 [STORY CREATE] ENTRY POINT REACHED!');
+    console.log('🚨🚨🚨 [STORY CREATE] Timestamp:', new Date().toISOString());
+    console.log('🚨🚨🚨 [STORY CREATE] Process ID:', process.pid);
+    console.log('🚨🚨🚨 [STORY CREATE] Memory usage:', process.memoryUsage());
+    
     try {
         console.log('🚨 [STORY CREATE] FUNCTION STARTED!');
-        console.log('� [STORY CREATE] Request method:', req.method);
+        console.log('🚨 [STORY CREATE] Request method:', req.method);
         console.log('🚨 [STORY CREATE] Request URL:', req.url);
         console.log('🚨 [STORY CREATE] Request path:', req.path);
         console.log('🚨 [STORY CREATE] Request original URL:', req.originalUrl);
@@ -16,7 +21,7 @@ export const addUserStory = async (req, res) => {
         console.log('🚨 [STORY CREATE] Content-Type:', req.headers['content-type']);
         console.log('🚨 [STORY CREATE] Authorization:', req.headers.authorization ? 'Present' : 'Missing');
         
-        console.log('�📖 [Story] Create story request received');
+        console.log('📖 [Story] Create story request received');
         console.log('📖 [Story] Request body:', req.body);
         console.log('📖 [Story] Request file:', req.file);
         console.log('📖 [Story] DEBUG - req.auth():', req.auth());
@@ -95,7 +100,9 @@ export const addUserStory = async (req, res) => {
         console.log('🚨 [STORY CREATE] Response data:', {success: true, storyId: story._id});
         res.json({success: true, storyId: story._id})
         console.log('🚨 [STORY CREATE] RESPONSE SENT!');
+        console.log('🚨🚨🚨 [STORY CREATE] FUNCTION COMPLETED!');
     } catch (error) {
+        console.error('🚨🚨🚨 [STORY CREATE] ERROR IN FUNCTION:', error);
         console.error('🚨 [STORY CREATE] ERROR CREATING STORY:', error);
         console.error('📖 [Story] Error creating story:', error);
         console.error('📖 [Story] Full error stack:', error.stack);
@@ -106,7 +113,13 @@ export const addUserStory = async (req, res) => {
 // get user stories
 export const getStories = async (req, res) => {
     console.log('🚨 [STORY DEBUG] FUNCTION CALLED - VERSION 3.0 - DEPLOY CHECK');
+    console.log('🚨🚨🚨 [STORY DEBUG] ENTRY POINT REACHED!');
+    console.log('🚨🚨🚨 [STORY DEBUG] Timestamp:', new Date().toISOString());
+    console.log('🚨🚨🚨 [STORY DEBUG] Process ID:', process.pid);
+    console.log('🚨🚨🚨 [STORY DEBUG] Memory usage:', process.memoryUsage());
+    
     try {
+        console.log('🚨 [STORY DEBUG] FUNCTION STARTED!');
         console.log('🚨 [STORY DEBUG] Request method:', req.method);
         console.log('🚨 [STORY DEBUG] Request URL:', req.url);
         console.log('🚨 [STORY DEBUG] Request path:', req.path);
