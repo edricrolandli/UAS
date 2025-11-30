@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 export const connectDB = async () => {
   try {
+    console.log(' [DB] connectDB() function called!');
     console.log(' [DB] Environment check:');
     console.log(' [DB] MONGODB_URL exists:', !!process.env.MONGODB_URL);
     console.log(' [DB] MONGODB_URL length:', process.env.MONGODB_URL?.length || 0);
