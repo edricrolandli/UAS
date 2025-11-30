@@ -119,6 +119,14 @@ export const getStories = async (req, res) => {
         console.log('📖 [Story] All stories for current user:', allUserStories.length);
         console.log('📖 [Story] Latest story for user:', allUserStories[0]?._id);
 
+        // DEBUG: Check if the new story ID exists in database
+        console.log('📖 [Story] Checking if new story exists in DB...');
+        const newStoryCheck = await Story.findById('692c03152c93022568b79446');
+        console.log('📖 [Story] New story exists in DB:', !!newStoryCheck);
+        if (newStoryCheck) {
+            console.log('📖 [Story] New story data:', JSON.stringify(newStoryCheck, null, 2));
+        }
+
         // TEMP FIX: Force include user's latest stories if missing
         if (allUserStories.length > stories.length) {
             console.log('🔧 [Story] FIX: Adding missing user stories');
