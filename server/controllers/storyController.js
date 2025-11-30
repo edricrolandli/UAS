@@ -7,9 +7,15 @@ import { inngest } from "../inngest/index.js";
 // Add user story
 export const addUserStory = async (req, res) => {
     console.log('🚨🚨🚨 [STORY CREATE] ENTRY POINT REACHED!');
+    console.log('🚨🚨🚨 [STORY CREATE] CALL STACK:', new Error().stack);
     console.log('🚨🚨🚨 [STORY CREATE] Timestamp:', new Date().toISOString());
     console.log('🚨🚨🚨 [STORY CREATE] Process ID:', process.pid);
     console.log('🚨🚨🚨 [STORY CREATE] Memory usage:', process.memoryUsage());
+    console.log('🚨🚨🚨 [STORY CREATE] Request object exists:', !!req);
+    console.log('🚨🚨🚨 [STORY CREATE] Response object exists:', !!res);
+    console.log('🚨🚨🚨 [STORY CREATE] Request method:', req?.method);
+    console.log('🚨🚨🚨 [STORY CREATE] Request URL:', req?.url);
+    console.log('🚨🚨🚨 [STORY CREATE] Request headers:', req?.headers ? Object.keys(req.headers) : 'No headers');
     
     try {
         console.log('🚨 [STORY CREATE] FUNCTION STARTED!');
@@ -114,6 +120,7 @@ export const addUserStory = async (req, res) => {
 export const getStories = async (req, res) => {
     console.log('🚨 [STORY DEBUG] FUNCTION CALLED - VERSION 3.0 - DEPLOY CHECK');
     console.log('🚨🚨🚨 [STORY DEBUG] ENTRY POINT REACHED!');
+    console.log('🚨🚨🚨 [STORY DEBUG] CALL STACK:', new Error().stack);
     console.log('🚨🚨🚨 [STORY DEBUG] Timestamp:', new Date().toISOString());
     console.log('🚨🚨🚨 [STORY DEBUG] Process ID:', process.pid);
     console.log('🚨🚨🚨 [STORY DEBUG] Memory usage:', process.memoryUsage());
