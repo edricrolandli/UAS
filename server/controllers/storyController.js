@@ -6,6 +6,8 @@ import { inngest } from "../inngest/index.js";
 
 // Add user story
 export const addUserStory = async (req, res) => {
+    // IMMEDIATE LOG - This will ALWAYS show if function is called
+    console.log('🚨🚨🚨 [STORY CREATE] FUNCTION CALLED AT:', new Date().toISOString());
     console.log('🚨🚨🚨 [STORY CREATE] ENTRY POINT REACHED!');
     console.log('🚨🚨🚨 [STORY CREATE] CALL STACK:', new Error().stack);
     console.log('🚨🚨🚨 [STORY CREATE] Timestamp:', new Date().toISOString());
