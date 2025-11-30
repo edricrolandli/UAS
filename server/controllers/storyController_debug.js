@@ -53,3 +53,8 @@ export const addUserStory = async (req, res) => {
         return res.json({ success: false, message: error.message });
     }
 }
+
+export const getStories = async (req, res) => {
+    console.log('📖 [Story] Get stories request received');
+    res.json({ success: true, message: 'Debug - Stories endpoint working' });
+}
