@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 
 export const connectDB = async () => {
   try {
+    console.log(' [DB] Environment check:');
+    console.log(' [DB] MONGODB_URL exists:', !!process.env.MONGODB_URL);
+    console.log(' [DB] MONGODB_URL length:', process.env.MONGODB_URL?.length || 0);
+    console.log(' [DB] MONGODB_URL preview:', process.env.MONGODB_URL?.substring(0, 20) + '...');
+    
     if (mongoose.connection.readyState === 1) {
       console.log('Using existing database connection');
       return;
