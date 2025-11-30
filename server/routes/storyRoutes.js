@@ -12,13 +12,23 @@ storyRouter.get('/test', (req, res) => {
 });
 
 storyRouter.post('/create', (req, res, next) => {
+    console.log(' [Route] POST /create - ENTRY POINT');
+    console.log(' [Route] Request headers:', Object.keys(req.headers));
+    console.log(' [Route] Content-Type:', req.headers['content-type']);
+    next();
+}, (req, res, next) => {
     console.log(' [Route] POST /create - before multer');
     next();
 }, upload.single('media'), (req, res, next) => {
     console.log(' [Route] POST /create - after multer');
+    console.log(' [Route] File uploaded:', req.file);
+    next();
+}, (req, res, next) => {
+    console.log(' [Route] POST /create - before auth');
     next();
 }, protect, (req, res, next) => {
     console.log(' [Route] POST /create - after auth');
+    console.log(' [Route] Auth successful, calling controller...');
     next();
 }, addUserStory)
 storyRouter.get('/get', protect, getStories)
