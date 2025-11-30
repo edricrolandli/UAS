@@ -16,6 +16,6 @@ storyRouter.post('/create', (req, res, next) => {
     next();
 }, addUserStory)
 storyRouter.get('/get', protect, getStories)
-storyRouter.get('/get-v2', protect, getStories)
+storyRouter.get('/get-v3', protect, getStories)
 
 export default storyRouter
