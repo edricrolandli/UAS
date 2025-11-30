@@ -5,8 +5,14 @@ import { addUserStory, getStories } from "../controllers/storyController.js";
 
 const storyRouter = express.Router()
 
+// Test route
+storyRouter.get('/test', (req, res) => {
+    console.log(' [STORY TEST] Test route called!');
+    res.json({ success: true, message: 'Story routes working!' });
+});
+
 storyRouter.post('/create', (req, res, next) => {
-    console.log('🔍 [Route] POST /create - before multer');
+    console.log(' [Route] POST /create - before multer');
     next();
 }, upload.single('media'), (req, res, next) => {
     console.log(' [Route] POST /create - after multer');
