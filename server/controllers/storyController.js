@@ -118,6 +118,15 @@ export const getStories = async (req, res) => {
         console.log('📖 [Story] All stories for current user:', allUserStories.length);
         console.log('📖 [Story] Latest story for user:', allUserStories[0]?._id);
 
+        // TEMP FIX: Force include user's latest stories if missing
+        if (allUserStories.length > stories.length) {
+            console.log('🔧 [Story] FIX: Adding missing user stories');
+            const userStoryIds = stories.map(s => s._id.toString());
+            const missingStories = allUserStories.filter(s => !userStoryIds.includes(s._id.toString()));
+            stories.unshift(...missingStories);
+            console.log('🔧 [Story] Added', missingStories.length, 'missing stories');
+        }
+
         res.json ({ success: true, stories: stories});
     } catch (error) {
         console.error('📖 [Story] Error getting stories:', error);
