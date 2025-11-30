@@ -94,7 +94,6 @@ const StoryModal = ({setShowModal, fetchStories}) => {
             const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
             
             const { data } = await api.post('/api/stories/create', formData, {
-                headers: {Authorization: `Bearer ${token}`},
                 signal: controller.signal
             });
             
