@@ -104,6 +104,7 @@ export const getStories = async (req, res) => {
         const userIds = [userId, ...user.connections, ...user.following]
         console.log('📖 [Story] User IDs to fetch stories for:', userIds);
 
+        // SIMPLIFIED: Just get all stories from the user and their connections
         const stories = await Story.find({
             user: {$in: userIds}
         }).populate('user').sort({ createdAt: -1 });
@@ -111,27 +112,7 @@ export const getStories = async (req, res) => {
         console.log('📖 [Story] Found stories:', stories.length);
         console.log('📖 [Story] Stories data:', JSON.stringify(stories, null, 2));
 
-        // Also include stories created by the current user (double-check)
-        const userStories = await Story.find({
-            user: userId
-        }).populate('user').sort({ createdAt: -1 });
-
-        console.log('📖 [Story] User own stories:', userStories.length);
-
-        // Merge and deduplicate
-        const allStories = [...stories];
-        userStories.forEach(userStory => {
-            if (!allStories.find(story => story._id.toString() === userStory._id.toString())) {
-                allStories.push(userStory);
-            }
-        });
-
-        // Sort by date
-        allStories.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-        console.log('📖 [Story] Final stories count:', allStories.length);
-
-        res.json ({ success: true, stories: allStories});
+        res.json ({ success: true, stories: stories});
     } catch (error) {
         console.error('📖 [Story] Error getting stories:', error);
         res.json({ success: false, message: error.message})
