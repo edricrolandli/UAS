@@ -18,9 +18,13 @@ export const connectDB = async () => {
     const db = await mongoose.connect(process.env.MONGODB_URL, {
       dbName: 'artwall',
       bufferCommands: false,
-      maxPoolSize: 10,
-      serverSelectionTimeoutMS: 10000, 
-      socketTimeoutMS: 45000,
+      maxPoolSize: 20, 
+      serverSelectionTimeoutMS: 15000, 
+      socketTimeoutMS: 60000,
+      connectTimeoutMS: 10000, 
+      heartbeatFrequencyMS: 10000, 
+      retryWrites: true, 
+      w: 'majority' 
     });
     
     console.log('MongoDB connected successfully to database:', db.connection.name);

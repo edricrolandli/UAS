@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_BASEURL,
-    withCredentials: true // Enable cookies for auth
+    withCredentials: true, // Enable cookies for auth
+    timeout: 30000 // Increase timeout to 30 seconds
 });
 
 // Add Clerk JWT token to all requests

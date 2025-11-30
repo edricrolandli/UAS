@@ -19,13 +19,8 @@ const RecentMessages = () => {
             console.log('📨 RecentMessages: Starting API call to /api/messages/recent');
             console.log('📨 RecentMessages: API base URL:', import.meta.env.VITE_BASEURL);
             
-            // First test if server is responding
-            console.log('📨 RecentMessages: Testing server connection...');
-            const testResponse = await api.get('/api/test', { timeout: 5000 });
-            console.log('📨 RecentMessages: Test response:', testResponse.data);
-            
-            // Now try the actual endpoint
-            const response = await api.get('/api/messages/recent', { timeout: 10000 })
+            // Direct API call without test endpoint (uses global timeout)
+            const response = await api.get('/api/messages/recent')
             console.log('📨 RecentMessages: API response received:', response);
             const data = response.data;
             console.log('📨 Recent messages API response:', data)
@@ -76,7 +71,8 @@ const RecentMessages = () => {
     useEffect(()=>{
         if (user) {
             fetchRecentMessages()
-            const intervalId = setInterval(fetchRecentMessages, 3000)
+            // Reduce polling frequency to every 30 seconds instead of 3 seconds
+            const intervalId = setInterval(fetchRecentMessages, 30000)
             refreshRecentMessages = fetchRecentMessages; // Store refresh function globally
             return () => {
                 clearInterval(intervalId)

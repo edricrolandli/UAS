@@ -56,14 +56,40 @@ export const addUserStory = async (req, res) => {
                 return res.status(400).json({ success: false, message: 'Media file required for image/video stories' });
             }
             
-            // Use buffer from memory storage
+            // Validate buffer exists
+            if (!media.buffer) {
+                console.error('📖 [Story] Error: No buffer in uploaded file');
+                return res.status(400).json({ success: false, message: 'Invalid file upload - no data' });
+            }
+            
+            // Use buffer from memory storage with proper file handling
             const fileBuffer = media.buffer
-            const response = await imagekit.upload({
-                file: fileBuffer,
-                fileName: media.originalname,
-            })
-            media_url = response.url
-            console.log('📖 [Story] Media uploaded to:', media_url);
+            const fileName = `story_${userId}_${Date.now()}_${media.originalname || 'image'}`
+            
+            console.log('📖 [Story] Uploading file:', fileName);
+            console.log('📖 [Story] Buffer size:', fileBuffer.length);
+            
+            try {
+                const response = await imagekit.upload({
+                    file: fileBuffer,
+                    fileName: fileName,
+                    useUniqueFileName: false // Prevent duplicate filename issues
+                })
+                media_url = response.url
+                console.log('📖 [Story] Media uploaded to:', media_url);
+            } catch (uploadError) {
+                console.error('📖 [Story] ImageKit upload error:', uploadError);
+                console.error('📖 [Story] Upload error details:', {
+                    message: uploadError.message,
+                    status: uploadError.status,
+                    code: uploadError.code
+                });
+                return res.status(500).json({ 
+                    success: false, 
+                    message: 'Failed to upload media to cloud storage',
+                    error: uploadError.message 
+                });
+            }
         }
         
         console.log('🚨 [STORY CREATE] ABOUT TO SAVE TO DATABASE...');
