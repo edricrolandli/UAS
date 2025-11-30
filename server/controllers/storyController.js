@@ -76,7 +76,8 @@ export const addUserStory = async (req, res) => {
         res.json({success: true, storyId: story._id})
     } catch (error) {
         console.error('📖 [Story] Error creating story:', error);
-        res.json({ success: false, message: error.message})
+        console.error('📖 [Story] Full error stack:', error.stack);
+        res.json({ success: false, message: error.message })
     }
 }
 
