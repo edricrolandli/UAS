@@ -86,6 +86,15 @@ app.use((req, res, next) => {
   console.log('🔍 Cookie:', req.headers.cookie);
   console.log('🔍 Request params:', req.params);
   console.log('🔍 Request query:', req.query);
+  
+  // DEBUG: Check if this is a stories request
+  if (req.url.includes('/stories')) {
+    console.log('🚨 [STORIES ROUTE] Stories request detected!');
+    console.log('🚨 [STORIES ROUTE] Full URL:', req.url);
+    console.log('🚨 [STORIES ROUTE] Method:', req.method);
+    console.log('🚨 [STORIES ROUTE] Path:', req.path);
+  }
+  
   if (req.url.includes('/api/users')) {
     console.log('👤 User API request details:', {
       method: req.method,
