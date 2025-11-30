@@ -8,21 +8,26 @@ export const connectDB = async () => {
     console.log(' [DB] MONGODB_URL preview:', process.env.MONGODB_URL?.substring(0, 20) + '...');
     
     if (mongoose.connection.readyState === 1) {
-      console.log('Using existing database connection');
+      console.log(' [DB] Using existing database connection');
+      console.log(' [DB] Connection state:', mongoose.connection.readyState);
       return;
     }
 
+    console.log(' [DB] Attempting to connect to MongoDB...');
     const db = await mongoose.connect(process.env.MONGODB_URL, {
       dbName: 'artwall',
       bufferCommands: false,
       maxPoolSize: 10,
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 10000, 
       socketTimeoutMS: 45000,
     });
     
     console.log('MongoDB connected successfully to database:', db.connection.name);
+    console.log(' [DB] Connection ready state:', mongoose.connection.readyState);
   } catch (error) {
     console.error('MongoDB connection error:', error.message);
+    console.error('Full error:', error);
+    console.error('Error stack:', error.stack);
     throw error;
   }
 };
