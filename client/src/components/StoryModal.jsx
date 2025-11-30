@@ -56,6 +56,12 @@ const StoryModal = ({setShowModal, fetchStories}) => {
     }
 
     const handleCreateStory = async () => {
+        console.log('📖 [StoryModal] Creating story...');
+        console.log('📖 [StoryModal] Mode:', mode);
+        console.log('📖 [StoryModal] Text:', text);
+        console.log('📖 [StoryModal] Media:', media);
+        console.log('📖 [StoryModal] Background:', background);
+        
         const media_type = mode === 'media' ? media?.type.startsWith('image') ? 'image' : "video" : "text";
 
         if(media_type === "text" && !text){
@@ -68,17 +74,31 @@ const StoryModal = ({setShowModal, fetchStories}) => {
         formData.append('media', media);
         formData.append('background_color', background);
 
+        console.log('📖 [StoryModal] FormData prepared:', {
+            content: text,
+            media_type,
+            background_color: background,
+            media: !!media
+        });
+
         const token = await getToken();
+        console.log('📖 [StoryModal] Got token:', !!token);
+        
         try {
             const { data } = await api.post('/api/stories/create', formData, {headers: {Authorization: `Bearer ${token}`}})
+            console.log('📖 [StoryModal] API response:', data);
+            
             if(data.success){
+                console.log('📖 [StoryModal] Story created successfully');
                 setShowModal(false)
                 toast.success("Story created successfully")
                 fetchStories()
             } else {
+                console.error('📖 [StoryModal] API returned error:', data.message);
                 toast.error(data.message)
             }
         } catch (error) {
+            console.error('📖 [StoryModal] Error creating story:', error);
             toast.error(error.message)
         }
     }
@@ -126,8 +146,7 @@ const StoryModal = ({setShowModal, fetchStories}) => {
                     <Upload size={18}/> Foto/Video
                 </label>
             </div>
-            <button onClick={()=> toast.promise(handleCreateStory(), {
-                loading : 'Saving...',})} className='flex items-center justify-center gap-2 text-white py-3 mt-4 w-full rounded bg-linear-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-orange-700 active:scale-95 transition cursor-pointer'>
+            <button onClick={handleCreateStory} className='flex items-center justify-center gap-2 text-white py-3 mt-4 w-full rounded bg-linear-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-orange-700 active:scale-95 transition cursor-pointer'>
                 <Sparkle size={18}/> Create Story
             </button>
 
