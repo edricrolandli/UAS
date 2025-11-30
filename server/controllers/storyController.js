@@ -7,6 +7,7 @@ import { inngest } from "../inngest/index.js";
 // Add user story
 export const addUserStory = async (req, res) => {
     try {
+        console.log('🚨 [STORY CREATE] FUNCTION STARTED!');
         console.log('📖 [Story] Create story request received');
         console.log('📖 [Story] Request body:', req.body);
         console.log('📖 [Story] Request file:', req.file);
@@ -15,6 +16,11 @@ export const addUserStory = async (req, res) => {
         
         const { userId } = req.auth();
         console.log('📖 [Story] User ID from auth:', userId);
+        
+        if (!userId) {
+            console.error('🚨 [STORY CREATE] NO USER ID!');
+            return res.json({ success: false, message: 'User not authenticated' });
+        }
         
         const { content, media_type, background_color } = req.body;
         const media = req.file
@@ -39,6 +45,9 @@ export const addUserStory = async (req, res) => {
             console.log('📖 [Story] Media uploaded to:', media_url);
         }
         
+        console.log('🚨 [STORY CREATE] ABOUT TO SAVE TO DATABASE...');
+        console.log('🚨 [STORY CREATE] Story model exists:', !!Story);
+        
         // create story
         const story = await Story.create({
             user: userId,
@@ -48,6 +57,7 @@ export const addUserStory = async (req, res) => {
             background_color
         })
         
+        console.log('🚨 [STORY CREATE] STORY SAVED TO DATABASE!');
         console.log('📖 [Story] Story created successfully:', story._id);
         console.log('📖 [Story] Story data:', JSON.stringify(story, null, 2));
 
@@ -73,8 +83,11 @@ export const addUserStory = async (req, res) => {
             console.log('⚠️ [Story] Continuing without Inngest scheduling');
         }
 
+        console.log('🚨 [STORY CREATE] SENDING RESPONSE TO FRONTEND...');
         res.json({success: true, storyId: story._id})
+        console.log('🚨 [STORY CREATE] RESPONSE SENT!');
     } catch (error) {
+        console.error('🚨 [STORY CREATE] ERROR CREATING STORY:', error);
         console.error('📖 [Story] Error creating story:', error);
         console.error('📖 [Story] Full error stack:', error.stack);
         res.json({ success: false, message: error.message })
