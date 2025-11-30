@@ -22,7 +22,7 @@ const StoriesBar = () => {
             const token = await getToken()
             console.log('📖 [StoriesBar] Got token:', !!token);
             
-            const { data } = await api.get('/api/stories/get', {headers: {Authorization: `Bearer ${token}`}})
+            const { data } = await api.get('/stories/get-v2', {headers: {Authorization: `Bearer ${token}`}})
             console.log('📖 [StoriesBar] API response:', data);
             
             if(data.success){
