@@ -8,7 +8,15 @@ import { inngest } from "../inngest/index.js";
 export const addUserStory = async (req, res) => {
     try {
         console.log('🚨 [STORY CREATE] FUNCTION STARTED!');
-        console.log('📖 [Story] Create story request received');
+        console.log('� [STORY CREATE] Request method:', req.method);
+        console.log('🚨 [STORY CREATE] Request URL:', req.url);
+        console.log('🚨 [STORY CREATE] Request path:', req.path);
+        console.log('🚨 [STORY CREATE] Request original URL:', req.originalUrl);
+        console.log('🚨 [STORY CREATE] Request headers:', Object.keys(req.headers));
+        console.log('🚨 [STORY CREATE] Content-Type:', req.headers['content-type']);
+        console.log('🚨 [STORY CREATE] Authorization:', req.headers.authorization ? 'Present' : 'Missing');
+        
+        console.log('�📖 [Story] Create story request received');
         console.log('📖 [Story] Request body:', req.body);
         console.log('📖 [Story] Request file:', req.file);
         console.log('📖 [Story] DEBUG - req.auth():', req.auth());
@@ -84,6 +92,7 @@ export const addUserStory = async (req, res) => {
         }
 
         console.log('🚨 [STORY CREATE] SENDING RESPONSE TO FRONTEND...');
+        console.log('🚨 [STORY CREATE] Response data:', {success: true, storyId: story._id});
         res.json({success: true, storyId: story._id})
         console.log('🚨 [STORY CREATE] RESPONSE SENT!');
     } catch (error) {
@@ -98,6 +107,14 @@ export const addUserStory = async (req, res) => {
 export const getStories = async (req, res) => {
     console.log('🚨 [STORY DEBUG] FUNCTION CALLED - VERSION 3.0 - DEPLOY CHECK');
     try {
+        console.log('🚨 [STORY DEBUG] Request method:', req.method);
+        console.log('🚨 [STORY DEBUG] Request URL:', req.url);
+        console.log('🚨 [STORY DEBUG] Request path:', req.path);
+        console.log('🚨 [STORY DEBUG] Request original URL:', req.originalUrl);
+        console.log('🚨 [STORY DEBUG] Request headers:', Object.keys(req.headers));
+        console.log('🚨 [STORY DEBUG] Content-Type:', req.headers['content-type']);
+        console.log('🚨 [STORY DEBUG] Authorization:', req.headers.authorization ? 'Present' : 'Missing');
+        
         console.log('📖 [Story] Get stories request received - VERSION 2.0');
         console.log('📖 [Story] DEBUG - req.auth():', req.auth());
         console.log('📖 [Story] DEBUG - req.authUserId:', req.authUserId);
