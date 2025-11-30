@@ -81,7 +81,7 @@ export const addUserStory = async (req, res) => {
 // get user stories
 export const getStories = async (req, res) => {
     try {
-        console.log('📖 [Story] Get stories request received');
+        console.log('📖 [Story] Get stories request received - VERSION 2.0');
         
         const { userId } = req.auth();
         console.log('📖 [Story] User ID from auth:', userId);
