@@ -65,6 +65,13 @@ app.use('/api/messages/:user_id', (req, res, next) => {
   }
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Headers', 'Cache-Control');
+  
+  // Handle preflight OPTIONS requests for SSE
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    return res.status(200).end();
+  }
+  
   next();
 });
 
